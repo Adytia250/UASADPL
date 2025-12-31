@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Singgah Sini — Hotel Reservation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo" onclick="showPage('home')">
+          <img src="SinggahSini.PNG" class="logo-img" alt="Logo Singgah Sini">
+          <span>Singgah Sini</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('listings')">Hotels</a></li>
+          <li><a href="#" onclick="showPage('dashboard')">My Bookings</a></li>
+          <li id="adminNavItem" class="hidden"><a href="#" onclick="showPage('admin')">Admin</a></li>
+        </ul>
+        <div class="nav-auth" id="navAuthArea">
+          <!-- login/register buttons rendered by JS -->
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <main id="homePage" class="page active">
+    <section class="hero">
+      <div class="container hero-content">
+        <h1>Rumah Kedua, di Setiap Destinasi Anda</h1>
+        <p class="small">Temukan hotel, resor, dan persewaan liburan dengan harga terbaik.</p>
+
+        <div class="search-box">
+          <form class="search-form" onsubmit="searchHotels(event)">
+            <div class="form-group">
+              <label for="destination">Kota, landmark, atau nama properti</label>
+              <input id="destination" placeholder="mis. Bali, Ubud, Kuta">
+            </div>
+            <div class="form-group">
+              <div class="dates" style="display:flex;gap:8px">
+                <div style="flex:1">
+                  <label>Check-in</label>
+                  <input type="date" id="checkin">
+                </div>
+                <div style="flex:1">
+                  <label>Check-out</label>
+                  <input type="date" id="checkout">
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
+                <select id="guests">
+                  <option>2 dewasa, 1 kamar</option>
+                  <option>1 dewasa, 1 kamar</option>
+                </select>
+                <button class="btn btn-primary" style="min-width:120px" type="submit">Cari</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <h2>Featured Hotels</h2>
+          <div class="small">Tampilan pertama — diambil dari data localStorage/default</div>
+        </div>
+        <div id="featuredHotels" class="hotels-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- LISTINGS -->
+  <section id="listingsPage" class="page hidden">
+    <div class="container" style="display:grid;grid-template-columns:320px 1fr;gap:18px;padding:12px 0">
+      <div>
+        <div class="filters-panel">
+          <h3>Filters</h3>
+          <div style="margin-top:12px">
+            <label>Price range</label>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <input type="number" id="minPrice" placeholder="Min" value="0">
+              <input type="number" id="maxPrice" placeholder="Max" value="500">
+            </div>
+          </div>
+          <div style="margin-top:12px">
+            <label>Star Rating</label>
+            <div style="margin-top:8px">
+              <label><input type="checkbox" class="star-filter" value="5"> 5</label>
+              <label style="margin-left:8px"><input type="checkbox" class="star-filter" value="4"> 4</label>
+              <label style="margin-left:8px"><input type="checkbox" class="star-filter" value="3"> 3</label>
+            </div>
+          </div>
+          <div style="margin-top:12px">
+            <label>Facilities</label>
+            <div style="margin-top:8px">
+              <label><input type="checkbox" class="amenity-filter" value="WiFi"> WiFi</label>
+              <label style="margin-left:8px"><input type="checkbox" class="amenity-filter" value="Pool"> Pool</label>
+              <label style="margin-left:8px"><input type="checkbox" class="amenity-filter" value="Breakfast"> Breakfast</label>
+            </div>
+          </div>
+          <div style="margin-top:12px">
+            <label>Sort by</label>
+            <select id="sortBy">
+              <option value="recommended">Recommended</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Rating</option>
+            </select>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn btn-outline" onclick="resetFilters()">Reset</button>
+            <button class="btn btn-primary" onclick="applyFilters()">Apply</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div id="hotelsList" class="hotels-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboardPage" class="page hidden">
+    <div class="container" style="padding:18px 0">
+      <h2>My Bookings</h2>
+      <div id="userBookings"></div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="adminPage" class="page hidden">
+    <div class="container" style="padding:18px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Admin Panel</h2>
+        <div>
+          <button class="btn btn-primary" onclick="openHotelForm('add')">+ Add New Hotel</button>
+        </div>
+      </div>
+      <div style="margin-top:12px;background:#fff;padding:12px;border-radius:12px;box-shadow:var(--shadow-md)">
+        <h3>Manage Hotels</h3>
+        <div id="adminHotelsList"></div>
+      </div>
+      <div style="margin-top:16px;background:#fff;padding:12px;border-radius:12px;box-shadow:var(--shadow-md)">
+        <h3>All Bookings</h3>
+        <div id="adminBookingsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <h3>Login</h3>
+      <form id="loginForm">
+        <label>Email</label>
+        <input id="loginEmail" type="email" required>
+        <label>Password</label>
+        <input id="loginPassword" type="password" required>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary">Login</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('loginModal')">Cancel</button>
+        </div>
+      </form>
+      <p class="small">Belum punya akun? <a href="#" onclick="closeModal('loginModal'); openRegister()">Daftar</a></p>
+    </div>
+  </div>
+
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <h3>Register</h3>
+      <form id="registerForm">
+        <label>Nama</label>
+        <input id="regName" required>
+        <label>Email</label>
+        <input id="regEmail" type="email" required>
+        <label>Password</label>
+        <input id="regPassword" type="password" required>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary">Register</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('registerModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="hotelFormModal" class="modal">
+    <div class="modal-content">
+      <h3 id="hotelFormTitle">Add / Edit Hotel</h3>
+      <form id="hotelForm">
+        <input id="hotelId" type="hidden">
+        <label>Nama Hotel</label><input id="hotelName" required>
+        <label>Lokasi</label><input id="hotelLocation" required>
+        <label>Harga (USD)</label><input id="hotelPrice" type="number" required>
+        <label>Rating (1-5)</label><input id="hotelRating" type="number" min="1" max="5" required>
+        <label>Amenities (pisahkan pakai koma)</label><input id="hotelAmenities">
+        <label>Stars</label><input id="hotelStars" type="number" min="1" max="5" required>
+        <label>Deskripsi</label><textarea id="hotelDescription"></textarea>
+        <label>Image (data URL atau link)</label><input id="hotelImage">
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('hotelFormModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="hotelModal" class="modal">
+    <div class="modal-content">
+      <button style="float:right" onclick="closeModal('hotelModal')">×</button>
+      <h3 id="modalHotelName"></h3>
+      <div id="modalHotelBody"></div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn btn-primary" id="modalBookBtn">Book Now</button>
+        <button class="btn btn-outline" onclick="closeModal('hotelModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="bookingModal" class="modal">
+    <div class="modal-content">
+      <h3>Complete Booking</h3>
+      <form id="bookingForm">
+        <label>First Name</label><input id="bkFirst" required>
+        <label>Last Name</label><input id="bkLast" required>
+        <label>Email</label><input id="bkEmail" type="email" required>
+        <label>Phone</label><input id="bkPhone" required>
+        <!-- Hidden date fields synced from search -->
+        <input type="hidden" id="bkCheckin" name="bkCheckin">
+        <input type="hidden" id="bkCheckout" name="bkCheckout">
+
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary">Confirm & Pay</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('bookingModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">&copy; 2025 Singgah Sini — Prototype. Built with localStorage & roles.</div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

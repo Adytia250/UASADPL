@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singgah Sini - Penginapan Nyaman</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Untuk ikon -->
+</head>
+<body>
+    <!-- Header dengan Navbar Sticky -->
+<!-- Header dengan Navbar Sticky -->
+<header>
+    <nav id="navbar">
+        <div class="logo">
+            <img src="SinggahSini.PNG" alt="Logo Singgah Sini" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="#rooms">Kamar</a></li>
+            <li><a href="#facilities">Fasilitas</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+        <div class="login-section">
+            <button id="login-btn" class="login-btn">Login</button>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+
+<!-- Modal Login/Register -->
+<div id="login-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-login">&times;</span>
+        <div class="tab-container">
+            <button class="tab-btn active" id="login-tab">Login</button>
+            <button class="tab-btn" id="register-tab">Daftar</button>
+        </div>
+        <div id="login-form-container">
+            <h2>Login ke Akun Anda</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Masuk</button>
+                <p class="forgot-password"><a href="#">Lupa Password?</a></p>
+            </form>
+        </div>
+        <div id="register-form-container" style="display: none;">
+            <h2>Daftar Akun Baru</h2>
+            <form id="register-form">
+                <input type="text" id="register-name" placeholder="Nama Lengkap" required>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <input type="password" id="register-confirm-password" placeholder="Konfirmasi Password" required>
+                <button type="submit">Daftar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <!-- Section Home (Hero) -->
+     <main id="protected-content">
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2 class="typing-text">Tempat Singgah Nyaman, Seperti Rumah Sendiri</h2>
+                <p>Singgah Sini adalah penginapan yang menawarkan kenyamanan dan kehangatan seperti di rumah sendiri. Nikmati pengalaman menginap yang tak terlupakan dengan fasilitas modern dan pelayanan ramah.</p>
+                <button id="book-now-btn" class="cta-btn">Pesan Sekarang</button>
+            </div>
+        </section>
+
+    <!-- Section Tentang Kami -->
+     <section id="about" class="section">
+    <div class="container">
+        <h2>Tentang Kami</h2>
+        <p>Singgah Sini didirikan pada tahun 2025 oleh sekelompok pecinta perjalanan yang ingin menciptakan tempat menginap yang lebih personal dan hangat. Kami percaya bahwa setiap tamu adalah bagian dari keluarga kami.</p>
+        <div class="visi-misi-wrapper">
+            <div class="visi-box card-interactive" onclick="toggleContent('visi-text')">
+                <div class="card-header">
+                    <h3>Visi Kami</h3>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div id="visi-text" class="collapsible-content">
+                    <p>Menjadi penginapan pilihan utama yang menawarkan kenyamanan dan keaslian pengalaman menginap.</p>
+                </div>
+            </div>
+
+            <div class="misi-box card-interactive" onclick="toggleContent('misi-text')">
+                <div class="card-header">
+                    <h3>Misi Kami</h3>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div id="misi-text" class="collapsible-content">
+                    <ul>
+                        <li>Menyediakan layanan berkualitas tinggi dengan harga terjangkau.</li>
+                        <li>mempromosikan pariwisata lokal.</li>
+                        <li>membangun komunitas tamu yang loyal.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Section Kamar -->
+    <section id="rooms" class="section">
+    <div class="container">
+        <h2>Pilihan Kamar Terbaik</h2>
+        <p>Klik detail untuk melihat fasilitas lengkap dan ulasan tamu.</p>
+        <div class="rooms-grid" id="rooms-container">
+            </div>
+    </div>
+</section>
+    <!-- Section Fasilitas -->
+    <section id="facilities" class="section">
+    <div class="container">
+        <h2>Fasilitas Umum</h2>
+        <div class="facilities-items-grid">
+            <div class="fac-item">
+                <div class="icon-box"><i class="fas fa-swimming-pool"></i></div>
+                <p>Kolam Renang</p>
+            </div>
+            <div class="fac-item">
+                <div class="icon-box"><i class="fas fa-utensils"></i></div>
+                <p>Restoran 24 Jam</p>
+            </div>
+            <div class="fac-item">
+                <div class="icon-box"><i class="fas fa-parking"></i></div>
+                <p>Parkir Luas</p>
+            </div>
+            <div class="fac-item">
+                <div class="icon-box"><i class="fas fa-dumbbell"></i></div>
+                <p>Pusat Kebugaran</p>
+            </div>
+            <div class="fac-item">
+                <div class="icon-box"><i class="fas fa-mosque"></i></div>
+                <p>Musholla</p>
+            </div>
+            <div class="fac-item">
+                <div class="icon-box"><i class="fas fa-mug-hot"></i></div>
+                <p>Cafe & Lounge</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="room-detail-modal" class="modal">
+    <div class="modal-content detail-modal">
+        <span class="close-detail">&times;</span>
+        <div id="detail-body">
+            </div>
+    </div>
+</div>
+
+    <!-- Section Kontak & Lokasi -->
+    <section id="contact" class="section contact-section">
+    <div class="container">
+        <h2>Hubungi Kami</h2>
+        <p>Ada pertanyaan? Kami siap membantu Anda kapan saja.</p>
+        
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Lokasi</h4>
+                        <p>Jl. Raya Bandara Juanda, Semawalang, Semambung, Kec. Gedangan, Waru, Surabaya, Indonesia</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <h4>Telepon</h4>
+                        <p>+62 895 3647 07418</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>halo@singgahsini.com</p>
+                    </div>
+                </div>
+                  <div class="map-container">
+      <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126497.10860551009!2d110.29618012167968!3d-7.786522000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787039aa61b%3A0xd68995388c3a52!2sMalioboro%20Yogyakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+      width="100%" height="250" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy">
+    </iframe>
+  </div>
+  <div id="toast-container" class="toast-container"></div>
+              
+
+            <div class="contact-form-container">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Pesan Anda..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-btn full-width">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <img src="SinggahSini.PNG" alt="Logo" class="footer-logo">
+            <p>Singgah Sini memberikan kenyamanan menginap terbaik dengan nuansa rumah yang hangat sejak 2025.</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Navigasi</h4>
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#rooms">Kamar</a></li>
+                <li><a href="#facilities">Fasilitas</a></li>
+                <li><a href="#about">Tentang Kami</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Ikuti Kami</h4>
+            <div class="social-links">
+                <a href="#" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon ig"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon wa"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon tw"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 <strong>Singgah Sini</strong>. Crafted with <i class="fas fa-heart" style="color: #ff4d4d;"></i> by You.</p>
+    </div>
+</footer>
+
+    <!-- Modal Pemesanan -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Pesan Kamar</h2>
+            <form id="booking-form">
+                <input type="text" placeholder="Nama Lengkap" required>
+                <input type="email" placeholder="Email" required>
+                <input type="date" placeholder="Tanggal Check-in" required>
+                <input type="date" placeholder="Tanggal Check-out" required>
+                <select required>
+                    <option value="">Pilih Tipe Kamar</option>
+                    <option value="standar">Kamar Standar</option>
+                    <option value="deluxe">Kamar Deluxe</option>
+                    <option value="suite">Kamar Suite</option>
+                </select>
+                <button type="submit">Konfirmasi Pemesanan</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
